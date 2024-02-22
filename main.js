@@ -14,6 +14,7 @@ const getLatestNews = async ()=> {
   console.log("dddd", newsList);
 };
 
+
 const render = ()=>{
   const newsHTML = newsList.map(news=>`<div class="row news">
   <div class="col-lg-4">
@@ -44,7 +45,18 @@ const render = ()=>{
   document.getElementById("news-board").innerHTML=newsHTML
 }
 
+const openSearchBox = () => {
+  let inputArea = document.getElementById("input-area");
+  if (inputArea.style.display === "inline") {
+    inputArea.style.display = "none";
+  } else {
+    inputArea.style.display = "inline";
+  }
+}
+
 getLatestNews();
+
+
 
 
 
