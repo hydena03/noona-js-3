@@ -3,8 +3,8 @@ let newsList = []
 const menus = document.querySelectorAll(".menus button")
 menus.forEach(menu => menu.addEventListener("click", (event) => getNewsByCategory(event)));
 
-//let url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&apikey=${API_KEY}`)
-let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apikey=${API_KEY}`);
+let url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&apikey=${API_KEY}`)
+// let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apikey=${API_KEY}`);
 
 let totalResults = 0;
 let page = 1;
@@ -38,8 +38,8 @@ const getNews = async () => {
 
 const getLatestNews = async () => {
 
-  // url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&apikey=${API_KEY}`)
- url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apikey=${API_KEY}`);
+  url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&apikey=${API_KEY}`)
+//  url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apikey=${API_KEY}`);
 
   getNews();
 };
@@ -48,8 +48,8 @@ const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
 
 
-  // url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&category=${category}&apikey=${API_KEY}`);
- url = new URL (`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apikey=${API_KEY}`);
+  url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&category=${category}&apikey=${API_KEY}`);
+//  url = new URL (`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apikey=${API_KEY}`);
 
   getNews();
 
@@ -58,8 +58,8 @@ const getNewsByCategory = async (event) => {
 const searchNews = async () => {
   const Keyword = document.getElementById("search-input").value;
 
-  // url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&q=${Keyword}&apikey=${API_KEY}`);
-  url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&q=${Keyword}&apikey=${API_KEY}`);
+  url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&q=${Keyword}&apikey=${API_KEY}`);
+  // url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&q=${Keyword}&apikey=${API_KEY}`);
 
   getNews();
 
