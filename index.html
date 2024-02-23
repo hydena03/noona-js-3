@@ -71,6 +71,12 @@
   </div>
 </div>
       </section>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+       
+        </ul>
+      </nav>
     </section>
 
     <script
@@ -83,5 +89,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 
     <script src="https://kit.fontawesome.com/4432444d3d.js" crossorigin="anonymous"></script>
+<script>
+    const openSearchBox = () => {
+      let inputArea = document.getElementById("input-area");
+      if (inputArea.style.display === "inline") {
+        inputArea.style.display = "none";
+      } else {
+        inputArea.style.display = "inline";
+      }
+    }
+  </script>
   </body>
 </html>
