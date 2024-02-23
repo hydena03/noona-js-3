@@ -1,42 +1,56 @@
 const API_KEY = `e8b9019be4404f7a9760c1636a0c451c`;
 let newsList=[]
 const menus = document.querySelectorAll(".menus button")
-menus.forEach(menu=>menu.addEventListener("click",(event)=>getNewsByCategory(event)))
+menus.forEach(menu=>menu.addEventListener("click",(event)=>getNewsByCategory(event)));
+
+let url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&apikey=${API_KEY}`)
+// let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apikey=${API_KEY}`);
+
+const getNews =async()=>{
+  try{
+    const response = await fetch(url)
+    const data = await response.json();
+    if(response.status===200){
+      if(data.articles.length===0){
+        throw new Error("검색 결과가 없습니다.")
+      }
+      newsList = data.articles;
+      render();
+    }else{
+      throw new Error(data.message)
+    }
+
+  }catch(error){
+errorRender(error.message);
+  }
+};
 
 const getLatestNews = async ()=> {
-  const url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&apikey=${API_KEY}`);
-    //  const url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apikey=${API_KEY}`);
 
-  const response = await fetch(url)
-  const data = await response.json();
-  newsList = data.articles;
-  render();
-  console.log("dddd", newsList);
+  let url = new URL(`https://noona-api-practice.netlify.app/top-headlines?country=kr&apikey=${API_KEY}`)
+  // let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apikey=${API_KEY}`);
+
+    getNews();
 };
 
 const getNewsByCategory= async (event)=>{
   const category = event.target.textContent.toLowerCase();
-console.log("category", category);
-const url = new URL (`https://noona-api-practice.netlify.app/top-headlines?country=kr&category=${category}&apikey=${API_KEY}`);
+
+
+url = new URL (`https://noona-api-practice.netlify.app/top-headlines?country=kr&category=${category}&apikey=${API_KEY}`);
 // const url = new URL (`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apikey=${API_KEY}`);
-const response = await fetch(url);
-const data = await response.json();
-console.log("Ddd",data);
-newsList = data. articles;
-render()
+
+getNews();
+
 };
 
 const searchNews = async() => {
   const Keyword = document.getElementById("search-input").value;
-  console.log("Keyword",Keyword);
-  const url = new URL (`https://noona-api-practice.netlify.app/top-headlines?country=kr&q=${Keyword}&apikey=${API_KEY}`);
-  // const url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&q=${Keyword}&apikey=${API_KEY}`);
 
-const response = await fetch(url)
-const data = await response.json()
-console.log("keyword data", data)
-newsList = data. articles;
-render()
+  url = new URL (`https://noona-api-practice.netlify.app/top-headlines?country=kr&q=${Keyword}&apikey=${API_KEY}`);
+  // url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&q=${Keyword}&apikey=${API_KEY}`);
+
+  getNews();
 
 };
 
@@ -68,7 +82,15 @@ const render = ()=>{
 
 
   document.getElementById("news-board").innerHTML=newsHTML
-}
+};
+
+const errorRender = (errorMessage) => {
+  const errorHTML = `<div class="alert alert-primary" role="alert">
+    ${errorMessage}
+  </div>`;
+
+  document.getElementById("news-board").innerHTML = errorHTML; 
+};
 
 const openSearchBox = () => {
   let inputArea = document.getElementById("input-area");
@@ -80,11 +102,6 @@ const openSearchBox = () => {
 }
 
 getLatestNews();
-
-
-//1.버튼 클릭 이벤트
-//2. 카테고리별 뉴스 가져오기
-//3. 그 뉴스를 보여주기
 
 
 
