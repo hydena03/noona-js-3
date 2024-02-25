@@ -102,28 +102,49 @@ const errorRender = (errorMessage) => {
 };
 
 const paginationRender = () => {
-
-const totalPages = Math.ceil(totalResults/pageSize);
-
+  const totalPages = Math.ceil(totalResults / pageSize);
   const pageGroup = Math.ceil(page / groupSize);
-
   let lastPage = pageGroup * groupSize;
 
-  if(lastPage> totalPages){
-    lastPage = totalPages
-};
+  if (lastPage > totalPages) {
+    lastPage = totalPages;
+  }
 
-  const firstPage = lastPage - (groupSize - 1)<=0? 1:lastPage - (groupSize - 1) ;
+  const firstPage = lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
 
-  let paginationHTML = `<li class="page-item" onclick="moveToPage(${page-1})"><a class="page-link" href="#">Previous</a></li>`;
+  let paginationHTML = "";
+
+  if (page > 1) {
+    paginationHTML += `<li class="page-item" onclick="moveToPage(1)"><a class="page-link" href="#"><<</a></li>`;
+    paginationHTML += `<li class="page-item" onclick="moveToPage(${page - 1})"><a class="page-link" href="#">Previous</a></li>`;
+  }
 
   for (let i = firstPage; i <= lastPage; i++) {
-    paginationHTML += `<li class="page-item ${i===page?"active":""}" onclick = "moveToPage(${i})"><a class="page-link">${i}</a></li>`
+    paginationHTML += `<li class="page-item ${i === page ? "active" : ""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`;
   }
-  paginationHTML += `<li class="page-item" onclick="moveToPage(${page+1})"><a class="page-link" href="#">Next</a></li>`;
 
-  document.querySelector(".pagination").innerHTML = paginationHTML
+  if (page < totalPages) {
+    paginationHTML += `<li class="page-item" onclick="moveToPage(${page + 1})"><a class="page-link" href="#">Next</a></li>`;
+    paginationHTML += `<li class="page-item" onclick="moveToPage(${totalPages})"><a class="page-link" href="#">>></a></li>`;
+  }
 
+
+  let last = pageGroup * 5;
+  if (last > totalPages) {
+
+    last = totalPages;
+  }
+let first = last - 4 <= 0 ? 1 : last - 4;
+
+
+  document.querySelector(".pagination").innerHTML = paginationHTML;
+};
+
+
+
+  
+
+  
 
   //   `<nav aria-label="Page navigation example">
   //   <ul class="pagination">
@@ -134,13 +155,15 @@ const totalPages = Math.ceil(totalResults/pageSize);
   //     <li class="page-item"><a class="page-link" href="#">Next</a></li>
   //   </ul>
   // </nav>`
-};
+
 
 const moveToPage = (pageNum) => {
   console.log("moveToPage", pageNum)
   page = pageNum;
   getNews();
 }
+
+
 
 getLatestNews();
 
